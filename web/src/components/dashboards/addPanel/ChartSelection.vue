@@ -124,6 +124,11 @@ export default defineComponent({
         id: "geomap",
       },
       {
+        image: "img:" + getImageURL("images/dashboard/charts/world-map.png"),
+        title: t("dashboard.worldmapLabel"),
+        id: "maps",
+      },
+      {
         image: "img:" + getImageURL("images/dashboard/charts/h-stacked.png"),
         title: t("dashboard.hstackedLabel"),
         id: "h-stacked",
