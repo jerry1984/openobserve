@@ -543,6 +543,20 @@ const useDashboardPanelData = () => {
           dashboardPanelData.layout.currentQueryIndex
         ].fields.filter = [];
         break;
+      case "maps":
+        dashboardPanelData.data.queries[
+          dashboardPanelData.layout.currentQueryIndex
+        ].fields.x = [];
+        dashboardPanelData.data.queries[
+          dashboardPanelData.layout.currentQueryIndex
+        ].fields.y = [];
+        dashboardPanelData.data.queries[
+          dashboardPanelData.layout.currentQueryIndex
+        ].fields.z = [];
+        dashboardPanelData.data.queries[
+          dashboardPanelData.layout.currentQueryIndex
+        ].fields.filter = [];
+        break;
       default:
         break;
     }
