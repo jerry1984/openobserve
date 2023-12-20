@@ -17,6 +17,7 @@ import { convertPromQLData } from "@/utils/dashboard/convertPromQLData";
 import { convertSQLData } from "@/utils/dashboard/convertSQLData";
 import { convertTableData } from "@/utils/dashboard/convertTableData";
 import { convertMapData } from "@/utils/dashboard/convertMapData";
+import { convertGeoMapData } from "@/utils/dashboard/convertGeoMapData";
 /**
  * Converts panel data based on the panel schema and data.
  *
@@ -87,6 +88,12 @@ export const convertPanelData = (
       return {
         chartType: panelSchema.type,
         ...convertMapData(panelSchema, data),
+      };
+    }
+    case "maps": {
+      return {
+        chartType: panelSchema.type,
+        ...convertGeoMapData(panelSchema, data),
       };
     }
     default: {

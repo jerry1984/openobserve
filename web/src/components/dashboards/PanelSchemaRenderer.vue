@@ -17,6 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <template>
   <div ref="chartPanelRef" style="height: 100%; position: relative">
     <div v-show="!errorDetail" style="height: 100%; width: 100%">
+      <GeoJSONMapRenderer
+        v-if="panelSchema.type == 'maps'"
+        :data="
+          panelData.chartType == 'maps'
+            ? panelData
+            : { options: { backgroundColor: 'transparent' } }
+        "
+      ></GeoJSONMapRenderer>
       <GeoMapRenderer
         v-if="panelSchema.type == 'geomap'"
         :data="
@@ -30,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         :data="
           panelData.chartType == 'table'
             ? panelData
-            : { options: { backgroundColor: 'transparent' } }
+            : { options: {  backgroundColor: 'transparent'  } }
         "
         ref="tableRendererRef"
       />
@@ -89,9 +97,10 @@ import { convertPanelData } from "@/utils/dashboard/convertPanelData";
 import ChartRenderer from "@/components/dashboards/panels/ChartRenderer.vue";
 import TableRenderer from "@/components/dashboards/panels/TableRenderer.vue";
 import GeoMapRenderer from "@/components/dashboards/panels/GeoMapRenderer.vue";
+import GeoJSONMapRenderer from "@/components/dashboards/panels/GeoJSONMapRenderer.vue";
 export default defineComponent({
   name: "PanelSchemaRenderer",
-  components: { ChartRenderer, TableRenderer, GeoMapRenderer },
+  components: { ChartRenderer, TableRenderer, GeoMapRenderer, GeoJSONMapRenderer },
   props: {
     selectedTimeObj: {
       required: true,
