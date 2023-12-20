@@ -297,7 +297,7 @@ export default defineComponent({
             dashboardPanelData.layout.currentQueryIndex
           ].customQuery
         ) {
-          if (dashboardPanelData.data.type == "geomap") {
+          if (dashboardPanelData.data.type == "geomap" || dashboardPanelData.data.type == "maps") {
             query = geoMapChart();
           } else {
             query = sqlchart();
