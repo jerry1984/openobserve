@@ -812,6 +812,19 @@ export default defineComponent({
             ) {
               errors.push("Add one field for the longitude");
             }
+            break;
+          }
+          case "maps": {
+            if (
+              dashboardData.data.queries[dashboardData.layout.currentQueryIndex].fields.name == null
+            ){
+              errors.push("Add one field for the name");
+            }
+            if(
+              dashboardData.data.queries[dashboardData.layout.currentQueryIndex].fields.value == null
+            ){
+              errors.push("Add one field for the value");
+            }
           }
           default:
             break;

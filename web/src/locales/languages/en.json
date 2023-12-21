@@ -564,7 +564,9 @@
     "promQL": "PromQL",
     "latitude": "Latitude",
     "longitude": "Longitude",
-    "weight": "Weight"
+    "weight": "Weight",
+    "mapname": "Name",
+    "mapvalue": "Value"
   },
   "home": {
     "streams": "Streams",

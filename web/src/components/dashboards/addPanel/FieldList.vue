@@ -294,7 +294,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         props.pageIndex >=
                           dashboardPanelData.meta.stream.customQueryFields
                             .length)
-                    ) && dashboardPanelData.data.type == 'geomap' || dashboardPanelData.data.type == 'maps'
+                    ) && dashboardPanelData.data.type == 'geomap'
                   "
                 >
                   <q-btn
@@ -334,6 +334,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     data-test="dashboard-add-weight-data"
                   >
                     <div>+W</div>
+                  </q-btn>
+                </div>
+                <div
+                  class="field_icons"
+                  v-if="
+                    !(
+                      promqlMode ||
+                      (dashboardPanelData.data.queries[
+                        dashboardPanelData.layout.currentQueryIndex
+                      ].customQuery &&
+                        props.pageIndex >=
+                          dashboardPanelData.meta.stream.customQueryFields
+                            .length)
+                    ) && dashboardPanelData.data.type == 'maps'
+                  "
+                >
+                  <q-btn
+                    :disabled="
+                      dashboardPanelData.data.queries[
+                        dashboardPanelData.layout.currentQueryIndex
+                      ].fields?.name != null
+                    "
+                    no-caps
+                    padding="sm"
+                    @click="addMapName(props.row)"
+                    data-test="dashboard-add-x-data"
+                  >
+                    <div>+N</div>
+                  </q-btn>
+                  <q-btn
+                    :disabled="
+                      dashboardPanelData.data.queries[
+                        dashboardPanelData.layout.currentQueryIndex
+                      ].fields?.value != null
+                    "
+                    no-caps
+                    padding="sm"
+                    @click="addMapValue(props.row)"
+                    data-test="dashboard-add-y-data"
+                  >
+                    <div>+V</div>
                   </q-btn>
                 </div>
               </div>
@@ -408,6 +449,8 @@ export default defineComponent({
       addLatitude,
       addLongitude,
       addWeight,
+      addMapName,
+      addMapValue,
       cleanupDraggingFields
     } = useDashboardPanelData();
 
@@ -624,6 +667,8 @@ export default defineComponent({
       addLatitude,
       addLongitude,
       addWeight,
+      addMapName,
+      addMapValue,
       addFilteredItem,
       data,
       getStreamList,

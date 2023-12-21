@@ -76,6 +76,8 @@ const getDefaultDashboardPanelData: any = () => ({
           latitude: null,
           longitude: null,
           weight: null,
+          name: null,
+          value: null,
         },
         config: {
           promql_legend: "",
@@ -159,6 +161,8 @@ const useDashboardPanelData = () => {
         latitude: null,
         longitude: null,
         weight: null,
+        name: null,
+        value: null,
       },
       config: {
         promql_legend: "",
@@ -462,6 +466,42 @@ const useDashboardPanelData = () => {
     }
   };
 
+  const addMapName = (row: any) => {
+    if (
+      !dashboardPanelData.data.queries[
+        dashboardPanelData.layout.currentQueryIndex
+      ].fields.name
+    ) {
+      dashboardPanelData.data.queries[
+        dashboardPanelData.layout.currentQueryIndex
+      ].fields.name = {
+        label: generateLabelFromName(row.name),
+        alias: "name",
+        column: row.name,
+        color: getNewColorValue(),
+        aggregationFunction: null, // You can set the appropriate aggregation function here
+      };
+    }
+  };
+
+  const addMapValue = (row: any) => {
+    if (
+      !dashboardPanelData.data.queries[
+        dashboardPanelData.layout.currentQueryIndex
+      ].fields.value
+    ) {
+      dashboardPanelData.data.queries[
+        dashboardPanelData.layout.currentQueryIndex
+      ].fields.value = {
+        label: generateLabelFromName(row.name),
+        alias: "value",
+        column: row.name,
+        color: getNewColorValue(),
+        aggregationFunction: null, // You can set the appropriate aggregation function here
+      };
+    }
+  };
+
   // get new color value based on existing color from the chart
   const getNewColorValue = () => {
     const YAxisColor = dashboardPanelData.data.queries[
@@ -486,6 +526,8 @@ const useDashboardPanelData = () => {
           query.fields.latitude = null;
           query.fields.longitude = null;
           query.fields.weight = null;
+          query.fields.name = null;
+          query.fields.value = null;
         });
         if (dashboardPanelData.data.queryType === "sql") {
           dashboardPanelData.layout.currentQueryIndex = 0;
@@ -522,6 +564,8 @@ const useDashboardPanelData = () => {
           query.fields.latitude = null;
           query.fields.longitude = null;
           query.fields.weight = null;
+          query.fields.name = null;
+          query.fields.value = null;
         });
         if (dashboardPanelData.data.queryType === "sql") {
           dashboardPanelData.layout.currentQueryIndex = 0;
@@ -556,6 +600,11 @@ const useDashboardPanelData = () => {
         dashboardPanelData.data.queries[
           dashboardPanelData.layout.currentQueryIndex
         ].fields.filter = [];
+        dashboardPanelData.data.queries?.forEach((query: any) => {
+          query.fields.latitude = null;
+          query.fields.longitude = null;
+          query.fields.weight = null;
+        });
         break;
       default:
         break;
@@ -659,6 +708,18 @@ const useDashboardPanelData = () => {
       dashboardPanelData.layout.currentQueryIndex
     ].fields.weight = null;
   };
+
+  const removeMapName = () => {
+    dashboardPanelData.data.queries[
+      dashboardPanelData.layout.currentQueryIndex
+    ].fields.name = null;
+  }
+
+  const removeMapValue = () => {
+    dashboardPanelData.data.queries[
+      dashboardPanelData.layout.currentQueryIndex
+    ].fields.value = null;
+  }
 
   const addFilteredItem = (name: string) => {
     if (
@@ -841,6 +902,12 @@ const useDashboardPanelData = () => {
       dashboardPanelData.data.queries[
         dashboardPanelData.layout.currentQueryIndex
       ].fields.weight = null;
+      dashboardPanelData.data.queries[
+        dashboardPanelData.layout.currentQueryIndex
+      ].fields.name = null;
+      dashboardPanelData.data.queries[
+        dashboardPanelData.layout.currentQueryIndex
+      ].fields.value = null;
     }
   };
 
@@ -876,6 +943,14 @@ const useDashboardPanelData = () => {
               dashboardPanelData.data.queries[
                 dashboardPanelData.layout.currentQueryIndex
               ].fields.weight;
+          } else if(name === "name"){
+            field = dashboardPanelData.data.queries[
+              dashboardPanelData.layout.currentQueryIndex
+            ].fields.name;
+          } else if(name === "value"){
+            field = dashboardPanelData.data.queries[
+              dashboardPanelData.layout.currentQueryIndex
+            ].fields.value;
           } else {
             // For other field types (x, y, z), determine the type and index as before
             let currentFieldType;
@@ -1058,6 +1133,34 @@ const useDashboardPanelData = () => {
           field.alias = newName;
           field.column = newName;
         }
+
+        //Check if the field is in the name fields
+        field =
+          dashboardPanelData.data.queries[
+            dashboardPanelData.layout.currentQueryIndex
+          ].fields.name;
+
+        if (field && field.alias == oldName) {
+          const newName = newArray[changedIndex[0]]?.name;
+
+          // Update the field alias and column to the new name
+          field.alias = newName;
+          field.column = newName;
+        }
+
+        //Check if the field is in the value fields
+        field =
+          dashboardPanelData.data.queries[
+            dashboardPanelData.layout.currentQueryIndex
+          ].fields.value;
+
+        if (field && field.alias == oldName) {
+          const newName = newArray[changedIndex[0]]?.name;
+
+          // Update the field alias and column to the new name
+          field.alias = newName;
+          field.column = newName;
+        }
       }
     }
   };
@@ -1072,6 +1175,8 @@ const useDashboardPanelData = () => {
     addLatitude,
     addLongitude,
     addWeight,
+    addMapName,
+    addMapValue,
     removeXAxisItem,
     removeYAxisItem,
     removeZAxisItem,
@@ -1079,6 +1184,8 @@ const useDashboardPanelData = () => {
     removeLatitude,
     removeLongitude,
     removeWeight,
+    removeMapName,
+    removeMapValue,
     addFilteredItem,
     loadFilterItem,
     removeXYFilters,
