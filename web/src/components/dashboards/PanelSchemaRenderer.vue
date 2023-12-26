@@ -57,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         @updated:data-zoom="$emit('updated:data-zoom', $event)"
       />
     </div>
-    <div v-if="!errorDetail" class="noData">{{ noData }}</div>
+    <div v-if="!errorDetail && panelSchema.type != 'geomap' && panelSchema.type != 'maps'" class="noData">{{ noData }}</div>
     <div
       v-if="errorDetail && !panelSchema?.error_config?.custom_error_handeling"
       class="errorMessage"
@@ -240,6 +240,10 @@ export default defineComponent({
             data.value[0]?.length > 1 ||
             yAlias.every((y: any) => data.value[0][0][y] != null)
           );
+        }
+        case "maps":
+        case "geomap": {
+          return true;
         }
         default:
           break;

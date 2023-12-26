@@ -95,7 +95,7 @@ export const convertPanelData = (
       
       return {
         chartType: panelSchema.type,
-        ...convertGeoMapData(panelSchema),
+        ...convertGeoMapData(panelSchema, data),
       };
     }
     default: {
