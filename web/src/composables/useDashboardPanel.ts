@@ -586,6 +586,10 @@ const useDashboardPanelData = () => {
         dashboardPanelData.data.queries[
           dashboardPanelData.layout.currentQueryIndex
         ].fields.filter = [];
+        dashboardPanelData.data.queries?.forEach((query: any) => {
+          query.fields.name = null;
+          query.fields.value = null;
+        });
         break;
       case "maps":
         dashboardPanelData.data.queries[
