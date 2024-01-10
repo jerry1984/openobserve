@@ -305,8 +305,14 @@ const useDashboardPanelData = () => {
           row.name == store.state.zoConfig.timestamp_column
             ? "histogram"
             : null,
+        // if timestamp_column is selected and chart type is table then use DESC else use ASC
+        // else null
         sortBy:
-          row.name == store.state.zoConfig.timestamp_column ? "ASC" : null,
+          row.name == store.state.zoConfig.timestamp_column
+            ? dashboardPanelData.data.type == "table"
+              ? "DESC"
+              : "ASC"
+            : null,
       });
     }
 

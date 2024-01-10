@@ -7,6 +7,7 @@
       icon="block"
       size="sm"
       data-test="dashboard-sort-by-item-clear"
+      :disable="fieldObj.aggregationFunction == 'histogram'"
     />
     <q-btn
       :class="fieldObj.sortBy === 'ASC' ? 'selected' : ''"
