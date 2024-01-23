@@ -104,6 +104,7 @@ import { useStore } from "vuex";
 import VariableQueryValueSelector from "./settings/VariableQueryValueSelector.vue";
 import VariableAdHocValueSelector from "./settings/VariableAdHocValueSelector.vue";
 import { isInvalidDate } from "@/utils/date";
+import { addLabelsToSQlQuery } from "@/utils/query/sqlUtils";
 
 export default defineComponent({
   name: "VariablesValueSelector",
@@ -219,12 +220,14 @@ export default defineComponent({
             obj.isLoading = true;
             console.log("query_data", it.query_data.filter);
             const filterConditions = it.query_data.filter || [];
-
-            const constructedFilter = filterConditions.map((condition: any) => ({
-              name: condition.name,
-              operator: condition.operator,
-              value: condition.value,
-            }));
+            let dummyQuery = "select * from " + it.query_data.stream ;
+            const constructedFilter = filterConditions.map(
+              (condition: any) => ({
+                name: condition.name,
+                operator: condition.operator,
+                value: condition.value,
+              })
+            );
 
             return streamService
               .fieldValues({
@@ -241,7 +244,7 @@ export default defineComponent({
                   ? it?.query_data?.max_record_size
                   : 10,
                 type: it.query_data.stream_type,
-                filter: constructedFilter,
+                query_context: addLabelsToSQlQuery(dummyQuery, constructedFilter),
               })
               .then((res: any) => {
                 obj.isLoading = false;
