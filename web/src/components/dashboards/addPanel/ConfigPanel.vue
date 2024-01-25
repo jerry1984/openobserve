@@ -279,7 +279,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         <!-- symbol size -->
         <q-select
-          v-model="dashboardPanelData.data.config.map_symbol_style_selected"
+          v-model="dashboardPanelData.data.config.map_symbol_style.size"
           :label="t('dashboard.symbolsize')"
           outlined
           :options="symbolOptions"
@@ -287,7 +287,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           class="showLabelOnTop"
           stack-label
           emit-value
-          :display-value="`${dashboardPanelData.data.config.map_symbol_style_selected}`"
+          :display-value="`${dashboardPanelData.data.config.map_symbol_style.size}`"
           data-test="dashboard-config-symbol"
         >
         </q-select>
@@ -297,10 +297,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <div class="row">
           <q-input
             v-if="
-              dashboardPanelData.data.config.map_symbol_style_selected ===
+              dashboardPanelData.data.config.map_symbol_style.size ===
               'by Value'
             "
-            v-model.number="dashboardPanelData.data.config.map_symbol_style.min"
+            v-model.number="dashboardPanelData.data.config.map_symbol_style.size_by_value.min"
             :label="t('dashboard.minimum')"
             color="input-border"
             bg-color="input-bg"
@@ -317,10 +317,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
           <q-input
             v-if="
-              dashboardPanelData.data.config.map_symbol_style_selected ===
+              dashboardPanelData.data.config.map_symbol_style.size ===
               'by Value'
             "
-            v-model.number="dashboardPanelData.data.config.map_symbol_style.max"
+            v-model.number="dashboardPanelData.data.config.map_symbol_style.size_by_value.max"
             :label="t('dashboard.maximum')"
             color="input-border"
             bg-color="input-bg"
@@ -337,9 +337,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </div>
         <q-input
           v-if="
-            dashboardPanelData.data.config.map_symbol_style_selected === 'fixed'
+            dashboardPanelData.data.config.map_symbol_style.size === 'fixed'
           "
-          v-model.number="dashboardPanelData.data.config.fixed_map_symbol_style"
+          v-model.number="dashboardPanelData.data.config.map_symbol_style.size_fixed"
           :label="t('dashboard.fixedValue')"
           color="input-border"
           bg-color="input-bg"
